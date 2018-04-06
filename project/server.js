@@ -3,9 +3,9 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
 const server = express();
-const PORT = process.env.PORT || 5000;
+const port = 5000;
 const projectRouter = require('./projectRouter');
-const actionRouter = require('./projectActions');
+const projectActions = require('./projectActions');
 
 
 
@@ -15,13 +15,13 @@ server.use(express.json());
 server.use(helmet());
 server.use(cors());
 
-server.use('/api/actions', actionRouter);
+server.use('/api/actions', projectActions);
 server.use('/api/projects', projectRouter);
 
 server.get('/', function(rec, res){
     res.json({api:'Im on fire!!!'});
 })
 
-server.listen(PORT, () => {
+server.listen(port, () => {
     console.log('API is running');
 });

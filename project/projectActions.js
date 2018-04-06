@@ -51,7 +51,7 @@ router.put('/:id', (req, res) => {
           res.status(200).json(changes);
         });
       } else {
-        res.status(404).json({ message: 'The action could not be updated' });
+        res.status(404).json({ message: 'action could not be updated' });
       }
     })
     .catch(error => {

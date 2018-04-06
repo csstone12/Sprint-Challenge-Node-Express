@@ -67,7 +67,7 @@ router.put('/:id', (req, res) => {
         });
       } else {
         res.status(404).json({
-          message: 'The project with the specified ID does not exist.'
+          message: 'project ID does not exist.'
         });
       }
     })
