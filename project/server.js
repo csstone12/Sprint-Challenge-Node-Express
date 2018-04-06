@@ -1,38 +1,27 @@
 const express = require('express');
-const server = express();
-const db = require('../data/dbConfig.js');
-const port = 5000;
+const morgan = require('morgan');
 const helmet = require('helmet');
-// const knex = require('knex');
+const cors = require('cors');
+const server = express();
+const PORT = process.env.PORT || 5000;
+const projectRouter = require('./projectRouter');
+const actionRouter = require('./projectActions');
 
-server.listen(port , () => console.log('API Running on port 5000'));
 
-server.get('/', function(req, res){
-    res.send({api: 'Running...'})
-});
 
-server.use(helmet());
+
+server.use(morgan('dev'));
 server.use(express.json());
+server.use(helmet());
+server.use(cors());
 
-server.get('/api/users', function(req, res){
-    userDB
-    .get()
-    .then(users => {
-        res.status(200).json(users);
-    })
-    .catch(error => {
-        res.status(500).json({error:'Users not Found'})
-    })
-});
+server.use('/api/actions', actionRouter);
+server.use('/api/projects', projectRouter);
 
-server.get('/api/users/:id', function(req, res){
-    const {id} = req.params
-    userDB
-    .get(id)
-    .then(users => {
-        res.status(200).json(users);
-    })
-    .catch(error => {
-        res.status(500).json({error:'Users not Found'})
-    })
+server.get('/', function(rec, res){
+    res.json({api:'Im on fire!!!'});
+})
+
+server.listen(PORT, () => {
+    console.log('API is running');
 });
